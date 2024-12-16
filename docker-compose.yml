@@ -1,0 +1,25 @@
+version: '3.0'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: mypassword
+      MYSQL_DATABASE: examen
+    ports:
+      - "3308:3306"
+
+
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      APP_NAME: Examenfinal
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/examen
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: mypassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - db
